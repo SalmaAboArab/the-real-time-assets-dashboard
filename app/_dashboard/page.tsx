@@ -74,21 +74,24 @@ export default function DashboardPreview() {
         />
       </div>
       <Header />
-      <Controls setAssets={setFilteredAssets} assets={Assets} />
+      <Controls setAssets={setFilteredAssets} assets={Assets} isGridView={isCardPreview} setIsGridView={setIsCardPreview} />
       <main className="max-w-7xl mx-auto px-4 md:px-8 py-8">
-        <button
+        {/* <button
           className="bg-slate-800 hover:bg-slate-700 text-white px-4 py-2 rounded-lg mb-4"
           onClick={() => setIsCardPreview(!isCardPreview)}
         >
           Toggle View
-        </button>
+        </button> */}
+
         {FilteredAssets.length === 0 && (
           <div className="text-center py-20 bg-slate-900/30 backdrop-blur-sm border border-slate-800/50 rounded-2xl">
             <div className="text-slate-400 mb-2">
               <Search className="w-12 h-12 mx-auto opacity-50" />
             </div>
             <p className="text-lg font-bold text-slate-300">No assets found</p>
-            <p className="text-sm text-slate-500 mt-1">Try adjusting your filters or search query</p>
+            <p className="text-sm text-slate-500 mt-1">
+              Try adjusting your filters or search query
+            </p>
           </div>
         )}
         {isCardPreview ? (

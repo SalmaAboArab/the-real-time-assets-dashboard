@@ -1,13 +1,17 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { assetsTypes } from "./mock-assets";
-import { Search } from "lucide-react";
+import { Grid2x2, Search, TableOfContents } from "lucide-react";
 
 export default function Controls({
   setAssets,
   assets = [],
+  isGridView,
+  setIsGridView,
 }: {
   setAssets: (assets: Asset[]) => void;
   assets: Asset[];
+  isGridView: boolean;
+  setIsGridView: (value: boolean) => void;
 }) {
   const [searchValue, setSearchValue] = useState("");
   const [SelectedType, setSelectedType] = useState("All");
@@ -73,7 +77,6 @@ export default function Controls({
       {/* border-b border-slate-800/50 backdrop-blur-xl */}
       <div className="max-w-7xl mx-auto px-4 md:px-8 py-8">
         <div className="flex flex-col lg:flex-row gap-4">
-
           <div className="relative flex-1 max-w-md">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
             <input
@@ -104,6 +107,38 @@ export default function Controls({
                 {type}
               </button>
             ))}
+          </div>
+
+          <div className="flex justify-end">
+            <div className="inline-flex bg-slate-800 p-1 rounded-xl gap-1">
+              {/* Grid */}
+              <button
+                onClick={() => setIsGridView(true)}
+                aria-label="Grid view"
+                className={`flex items-center justify-center w-10 h-10 rounded-lg transition-all duration-200
+        ${
+          isGridView
+            ? "bg-linear-to-r from-cyan-600 to-blue-700 text-white shadow-lg shadow-cyan-500/30"
+            : "text-slate-300 hover:text-white hover:bg-slate-700"
+        }`}
+              >
+                <Grid2x2 className="w-5 h-5" />
+              </button>
+
+              {/* Table */}
+              <button
+                onClick={() => setIsGridView(false)}
+                aria-label="Table view"
+                className={`flex items-center justify-center w-10 h-10 rounded-lg transition-all duration-200
+        ${
+          !isGridView
+            ? "bg-linear-to-r from-cyan-600 to-blue-700 text-white shadow-lg shadow-cyan-500/30"
+            : "text-slate-300 hover:text-white hover:bg-slate-700"
+        }`}
+              >
+                <TableOfContents className="w-5 h-5" />
+              </button>
+            </div>
           </div>
         </div>
       </div>
