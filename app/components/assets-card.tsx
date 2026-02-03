@@ -2,7 +2,7 @@ import React from "react";
 
 export default function AssetsCard({ card }: { card?: any }) {
   return (
-    <div className="border border-slate-900 rounded-xl p-4 bg-linear-to-br from-slate-900/20 to-slate-700/50 backdrop-blur-sm hover:scale-105 transition-transform duration-200">
+    <div className="border border-slate-700/50 rounded-xl p-4 bg-linear-to-br from-slate-900 to-slate-800 backdrop-blur-sm hover:scale-105 transition-transform duration-200">
       <div className="flex justify-between">
         <p className="text-white uppercase text-md font-bold tracking-wider">
           {card?.symbol}

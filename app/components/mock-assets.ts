@@ -12,3 +12,5 @@ export const assets = [
     { id: 11, name: 'Amazon.com Inc.', symbol: 'AMZN', type: 'Stock', basePrice: 151.94, volume: '11.2M', marketCap: '1.6T', pe: 52.3, dividend: 0 },
     { id: 12, name: 'Nvidia Corp.', symbol: 'NVDA', type: 'Stock', basePrice: 722.48, volume: '18.7M', marketCap: '1.8T', pe: 115.2, dividend: 0.16 },
   ];
+
+export const assetsTypes = ['Stock', 'Crypto', 'ETF', 'Bond', 'Commodity'];

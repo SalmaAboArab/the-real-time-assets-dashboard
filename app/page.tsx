@@ -1,4 +1,4 @@
-import DashboardPreview from "./components/dashboard-preview";
+import DashboardPreview from "./_dashboard/page";
 
 export const metadata = {
   title: 'Real Time Assets Dashboard',
