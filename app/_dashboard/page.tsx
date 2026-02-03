@@ -59,6 +59,12 @@ export default function DashboardPreview() {
     return () => clearInterval(interval);
   }, []);
 
+  const totalValue = Assets.reduce((sum, asset) => sum + asset.price, 0);
+  const totalChange = Assets.reduce((sum, asset) => sum + asset.change, 0);
+  const totalChangePercent = (totalChange / (totalValue - totalChange)) * 100;
+  const gainers = Assets.filter((a) => a.changePercent > 0).length;
+  const losers = Assets.filter((a) => a.changePercent < 0).length;
+
   return (
     <div className="min-h-screen bg-linear-to-br from-slate-950 via-slate-900 to-slate-950">
       <div className="fixed inset-0 opacity-20 pointer-events-none">
@@ -73,8 +79,13 @@ export default function DashboardPreview() {
           }}
         />
       </div>
-      <Header />
-      <Controls setAssets={setFilteredAssets} assets={Assets} isGridView={isCardPreview} setIsGridView={setIsCardPreview} />
+      <Header gainers={gainers} losers={losers} totalChangePercent={totalChangePercent} totalValue={totalValue}/>
+      <Controls
+        setAssets={setFilteredAssets}
+        assets={Assets}
+        isGridView={isCardPreview}
+        setIsGridView={setIsCardPreview}
+      />
       <main className="max-w-7xl mx-auto px-4 md:px-8 py-8">
         {/* <button
           className="bg-slate-800 hover:bg-slate-700 text-white px-4 py-2 rounded-lg mb-4"

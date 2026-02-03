@@ -1,6 +1,14 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { formatChangePercent, formatPrice } from "../utils/format";
+import { Clock, TrendingDown, TrendingUp } from "lucide-react";
 
-export default function Header() {
+export default function Header({totalChangePercent, gainers, losers, totalValue}: {totalChangePercent: number; gainers: number; losers: number; totalValue: number}) {
+  // const [lastUpdated, setLastUpdated] = useState<string>("just now");
+  // useEffect(() => {
+  //     const now = new Date();
+  //     setLastUpdated(now.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }));
+  // }, [totalChangePercent, gainers, losers, totalValue]);
+
   return (
     <header className="relative border-b border-slate-800/50 backdrop-blur-xl bg-slate-900/50">
       <div className="max-w-7xl mx-auto px-4 md:px-8 py-6">
@@ -11,21 +19,9 @@ export default function Header() {
               Portfolio Command
             </h1>
             <p className="text-sm text-slate-400 font-medium flex items-center gap-2">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={1.5}
-                stroke="currentColor"
-                className="size-5"
-                >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
-                  />
-              </svg>
+              <Clock className="w-5 h-5" />
               Real-time market data • Last updated: just now
+              {/* {lastUpdated} */}
                   {/* <span className="font-normal">
                 {new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
               </span> */}
@@ -38,9 +34,13 @@ export default function Header() {
               <p className="text-xs text-slate-400 uppercase tracking-wider mb-1 font-semibold">
                 Total Value
               </p>
-              <p className="text-2xl font-black text-white tabular-nums">$41.950.41</p>
-              <p className="text-sm font-bold tabular-nums mt-1 flex items-center gap-1 text-emerald-400
-                ">16%</p>
+                <p className="text-2xl font-black text-white tabular-nums">{formatPrice(totalValue)}</p>
+                <p className={`text-sm font-bold tabular-nums mt-1 flex items-center gap-1 ${
+                  totalChangePercent >= 0 ? 'text-emerald-400' : 'text-rose-400'
+                }`}>
+                  {totalChangePercent >= 0 ? <TrendingUp className="w-3.5 h-3.5" /> : <TrendingDown className="w-3.5 h-3.5" />}
+                  {formatChangePercent(totalChangePercent)}
+                </p>
             </div>
 
             <div className="p-4 rounded-xl border border-emerald-500/30 bg-linear-to-br from-emerald-900/20 to-slate-900/50 backdrop-blur-sm">
@@ -48,7 +48,7 @@ export default function Header() {
                 Gainers
               </p>
               <p className="text-2xl font-black text-emerald-400 tabular-nums">
-                9
+                {gainers}
               </p>
               <p className="text-xs text-emerald-400/60 mt-1">
                 Assets up today
@@ -57,7 +57,7 @@ export default function Header() {
 
             <div className=" p-4 rounded-xl border border-rose-500/30 bg-linear-to-br from-rose-900/20 to-slate-900/50 backdrop-blur-sm">
               <p className="text-xs text-rose-300 uppercase tracking-wider mb-1 font-semibold">Losers</p>
-              <p className="text-2xl font-black text-rose-400 tabular-nums">3</p>
+              <p className="text-2xl font-black text-rose-400 tabular-nums">{losers}</p>
               <p className="text-xs text-rose-400/60 mt-1">
                 Assets down today
               </p>
