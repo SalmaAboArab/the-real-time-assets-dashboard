@@ -1,17 +1,18 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { assetsTypes } from "./mock-assets";
+import { Search } from "lucide-react";
 
 export default function Controls({
   setAssets,
   assets = [],
 }: {
-  setAssets: (assets: any[]) => void;
-  assets: any[];
+  setAssets: (assets: Asset[]) => void;
+  assets: Asset[];
 }) {
   const [searchValue, setSearchValue] = useState("");
   const [SelectedType, setSelectedType] = useState("All");
 
-  const getSearchNameValue = (input: any) => {
+  const getSearchNameValue = (input: { target: { value: string } }) => {
     setSearchValue(input.target.value.toLowerCase());
     getSearchValue(SelectedType, input.target.value.toLowerCase());
   };
@@ -61,19 +62,29 @@ export default function Controls({
     [searchValue],
   );
 
+  useEffect(() => {
+    if (assets.length > 0) {
+      getSearchValue(SelectedType, searchValue);
+    }
+  }, [assets]);
+
   return (
     <div className="sticky top-0 z-40 bg-slate-900 w-full">
       {/* border-b border-slate-800/50 backdrop-blur-xl */}
       <div className="max-w-7xl mx-auto px-4 md:px-8 py-8">
         <div className="flex flex-col lg:flex-row gap-4">
-          <input
-            type="text"
-            name="search"
-            id="search"
-            className="max-w-md w-full pl-11 pr-4 py-2.5 bg-slate-800/50 border border-slate-700/50 rounded-xl text-white placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-500/50 transition-all text-sm font-medium"
-            placeholder="Search assets, symbols..."
-            onChange={debounce(getSearchNameValue, 500)}
-          />
+
+          <div className="relative flex-1 max-w-md">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
+            <input
+              type="text"
+              name="search"
+              id="search"
+              className="max-w-md w-full pl-11 pr-4 py-2.5 bg-slate-800/50 border border-slate-700/50 rounded-xl text-white placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-500/50 transition-all text-sm font-medium"
+              placeholder="Search assets, symbols..."
+              onChange={debounce(getSearchNameValue, 500)}
+            />
+          </div>
 
           <div className="flex gap-1.5 mx-2">
             {["All", ...assetsTypes].map((type) => (

@@ -1,8 +1,27 @@
 import React from "react";
+import {
+  formatChange,
+  formatChangePercent,
+  formatPrice,
+} from "../utils/format";
+import { TrendingDown, TrendingUp } from "lucide-react";
 
-export default function AssetsCard({ card }: { card?: any }) {
+export default function AssetsCard({
+  card,
+  isGain,
+  isFlashing,
+}: {
+  card: Asset;
+  isGain: boolean;
+  isFlashing: boolean;
+}) {
   return (
-    <div className="border border-slate-700/50 rounded-xl p-4 bg-linear-to-br from-slate-900 to-slate-800 backdrop-blur-sm hover:scale-105 transition-transform duration-200">
+    <div
+      // className={`border border-slate-700/50 rounded-xl p-4 bg-linear-to-br from-slate-900 to-slate-800 backdrop-blur-sm hover:scale-105 transition-transform duration-200 ${isFlashing ? 'animate-pulse' : ''}`}
+      className={`bg-linear-to-br from-slate-900 to-slate-800 border border-slate-700/50 rounded-2xl p-5 cursor-pointer overflow-hidden transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl hover:shadow-cyan-500/20 ${
+        isFlashing ? "ring-2 ring-cyan-400 shadow-lg shadow-cyan-400/50" : ""
+      }`}
+    >
       <div className="flex justify-between">
         <p className="text-white uppercase text-md font-bold tracking-wider">
           {card?.symbol}
@@ -29,8 +48,30 @@ export default function AssetsCard({ card }: { card?: any }) {
       </p>
 
       <p className="text-2xl text-white font-extrabold tabular-nums">
-        ${card?.basePrice}
+        {formatPrice(card.price)}
       </p>
+
+      <div className="flex items-center gap-2">
+        <span
+          className={`flex items-center gap-1 text-sm font-bold tabular-nums ${
+            isGain ? "text-emerald-400" : "text-rose-400"
+          }`}
+        >
+          {isGain ? (
+            <TrendingUp className="w-4 h-4" />
+          ) : (
+            <TrendingDown className="w-4 h-4" />
+          )}
+          {formatChangePercent(card.changePercent)}
+        </span>
+        <span
+          className={`text-sm font-medium tabular-nums ${
+            isGain ? "text-emerald-400/80" : "text-rose-400/80"
+          }`}
+        >
+          {formatChange(card.change)}
+        </span>
+      </div>
 
       <div className="w-full h-px bg-gray-700 my-3"></div>
 
