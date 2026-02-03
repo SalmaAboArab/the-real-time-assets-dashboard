@@ -21,3 +21,6 @@ interface Asset extends BaseAsset {
   favorited: boolean;
 }
 
+type SortKey = "name" | "price" | "change" | "volume";
+type SortOrder = "asc" | "desc";
+

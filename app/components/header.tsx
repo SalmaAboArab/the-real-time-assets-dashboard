@@ -30,7 +30,7 @@ export default function Header({totalChangePercent, gainers, losers, totalValue}
 
           {/* States Cards */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            <div className="bg-linear-to-br from-slate-800/50 to-slate-900/50 backdrop-blur-sm border border-slate-700/50 rounded-xl p-4">
+            <div className="bg-linear-to-br from-slate-800/50 to-slate-900/50 backdrop-blur-sm border border-slate-700/50 rounded-xl p-4 overflow-hidden">
               <p className="text-xs text-slate-400 uppercase tracking-wider mb-1 font-semibold">
                 Total Value
               </p>
