@@ -5,7 +5,7 @@ import Header from "../components/header";
 import AssetsCard from "../components/assets-card";
 import { generateMockAssets } from "../components/mock-assets";
 import AssetsTable from "../components/assets-table";
-import Controls from "../components/controls";
+import Controls from "../components/controls/controls";
 import { Search } from "lucide-react";
 
 export default function DashboardPreview() {
